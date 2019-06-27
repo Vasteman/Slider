@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Page from './components/Page'
+import Slider from './components/Slider'
+
+import './App.css'
+
+const slides = [
+  {
+    color: 'cyan'
+  },
+  {
+    color: 'white'
+  },
+  {
+    color: 'red'
+  },
+  {
+    color: 'green'
+  },
+  {
+    color: 'blue'
+  }
+]
+
+export default class App extends React.Component {
+  state = {
+    activeSlide: 0
+  }
+
+  nextPage = () => {
+    if (this.state.activeSlide === slides.length - 1) {
+      this.setState({ activeSlide: 0 })
+    } else {
+      this.setState({ activeSlide: this.state.activeSlide + 1 })
+    }
+  }
+
+  prevPage = () => {
+    if (this.state.activeSlide > 0) {
+      this.setState({ activeSlide: this.state.activeSlide - 1 })
+    }
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <Page>SomeContent</Page>
+        <Page>
+          <Slider
+            slides={slides}
+            activeSlide={this.state.activeSlide}
+            nextPage={this.nextPage}
+            prevPage={this.prevPage}
+          />
+        </Page>
+        <Page>SomeContent</Page>
+      </div>
+    )
+  }
 }
-
-export default App;
