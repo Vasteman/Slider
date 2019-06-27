@@ -1,7 +1,8 @@
 import React from 'react'
 
-import Page from './components/Page'
-import Slider from './components/Slider'
+// import Page from './components/Page'
+// import Slider from './components/Slider'
+import VSlider from './components/VSlider/VSlider';
 
 import './App.css'
 
@@ -21,6 +22,15 @@ const slides = [
   {
     color: 'blue'
   }
+]
+
+const vSlides = [
+  '#main',
+  '#services',
+  '#partners',
+  '#news',
+  '#numbers',
+  '#contacts'
 ]
 
 export default class App extends React.Component {
@@ -43,9 +53,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { activeSlide } = this.state
     return (
       <div className='App'>
-        <Page>SomeContent</Page>
+        <VSlider slides={vSlides} activeSlide={activeSlide} />
+        {/* <Page>SomeContent</Page>
         <Page>
           <Slider
             slides={slides}
@@ -54,7 +66,7 @@ export default class App extends React.Component {
             prevPage={this.prevPage}
           />
         </Page>
-        <Page>SomeContent</Page>
+        <Page>SomeContent</Page> */}
       </div>
     )
   }
