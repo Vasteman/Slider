@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 // import Page from './components/Page'
 // import Slider from './components/Slider'
@@ -54,13 +55,35 @@ export default class App extends React.Component {
   //   }
   // }
 
+  componentDidMount() {
+    window.addEventListener('wheel', _.debounce(this.handleScroll, 50))
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('wheel', _.debounce(this.handleScroll, 50))
+  }
+
+  handleScroll = ev => {
+    ev.preventDefault()
+    console.log(ev)
+    console.log(this.state)
+    // const indexOfCurrent = vSlides.indexOf(vSlides.find(slide => slide.href === nextHref))
+    // const indexOfNext = indexOfCurrent < vSlides.length - 1 ? indexOfCurrent + 1 : indexOfCurrent
+    // if (ev.currentTarget === 'Window') {
+    console.log('GOOOO')
+    this.nextPage(vSlides[this.state.activeSlideIndex + 1].href)
+    // }
+  }
+
   nextPage = nextHref => {
     // const indexOfCurrent = vSlides.indexOf(vSlides.find(slide => slide.href === nextHref))
     // const indexOfNext = indexOfCurrent < vSlides.length - 1 ? indexOfCurrent + 1 : indexOfCurrent
     const indexOfNext = vSlides.indexOf(vSlides.find(slide => slide.href === nextHref))
     if (indexOfNext !== vSlides.length - 1) {
+      console.log(vSlides[indexOfNext])
       console.log('go to page "' + vSlides[indexOfNext].href + '",index:', indexOfNext)
-      // this.setState({ activeSlide: vSlides[indexOfNext].href, activeSlideIndex: indexOfNext })
+      window.location.hash = vSlides[indexOfNext].href
+      this.setState({ activeSlide: vSlides[indexOfNext].href, activeSlideIndex: indexOfNext })
     }
   }
 
@@ -93,6 +116,4 @@ export default class App extends React.Component {
   }
 }
 
-const Wrapper = styled.div`
-  transition: all 2s ease-out;
-`
+const Wrapper = styled.div``
