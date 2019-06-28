@@ -3,15 +3,13 @@ import styled from 'styled-components'
 
 import Slide from './Slide'
 
-const colors = ['white', 'red', 'green', 'blue', 'cyan', 'gold']
-
 const VSlider = props => {
-  const { slides, activeSlide } = props
+  const { slides, activeSlide, activeSlideIndex, nextPage } = props
   return (
     <Wrapper activeSlide={activeSlide}>
-      {slides.map((slide, index) => (
-        <Slide data={slide} key={index} color={colors[index]} />
-      ))}
+      {slides.map((slide, index) => {
+        return <Slide data={slide} key={index} nextPage={nextPage} />
+      })}
     </Wrapper>
   )
 }
@@ -21,5 +19,5 @@ export default VSlider
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background: ${props => colors[props.activeSlide]};
+  overflow: hidden;
 `
